@@ -1,14 +1,55 @@
 #!/bin/bash
 
 RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
 BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+WHITE='\033[1;37m'
 NC='\033[0m'
+
+loading_animation() {
+    clear
+    echo -e "${CYAN}╔══════════════════════════════════════════════════════╗${NC}"
+    echo -e "${CYAN}║  ɪɴɪᴛɪᴀʟɪᴢɪɴɢ...                                     ║${NC}"
+    echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${NC}"
+    sleep 0.4
+    
+    bars=(
+        "${RED}▱▱▱▱▱▱▱▱▱▱ 0%${NC}"
+        "${YELLOW}▰▱▱▱▱▱▱▱▱▱ 10%${NC}"
+        "${MAGENTA}▰▰▱▱▱▱▱▱▱▱ 20%${NC}"
+        "${BLUE}▰▰▰▰▱▱▱▱▱▱ 30%${NC}"
+        "${CYAN}▰▰▰▰▰▱▱▱▱▱ 40%${NC}"
+        "${MAGENTA}▰▰▰▰▰▰▱▱▱▱ 50%${NC}"
+        "${YELLOW}▰▰▰▰▰▰▰▱▱▱ 60%${NC}"
+        "${MAGENTA}▰▰▰▰▰▰▰▰▱▱ 70%${NC}"
+        "${BLUE}▰▰▰▰▰▰▰▰▰▱ 80%${NC}"
+        "${CYAN}▰▰▰▰▰▰▰▰▰▰ 90%${NC}"
+        "${CYAN}▰▰▰▰▰▰▰▰▰▰ 100%${NC}"
+    )
+    
+    for bar in "${bars[@]}"; do
+        clear
+        echo -e "${CYAN}╔══════════════════════════════════════════════════════╗${NC}"
+        echo -e "${CYAN}║  ɪɴɪᴛɪᴀʟɪᴢɪɴɢ...                                  ║${NC}"
+        echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${NC}"
+        echo -e "${WHITE}ᴡᴀɪᴛɪɴɢ... $bar${NC}"
+        sleep 0.4
+    done
+    
+    clear
+    echo -e "${CYAN}╔══════════════════════════════════════════════════════╗${NC}"
+    echo -e "${CYAN}║     sᴜᴄᴄᴇssғᴜʟʟʏ ʟᴀᴜɴᴄʜᴇᴅ!                         ║${NC}"
+    echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${NC}"
+    sleep 1
+}
+
+loading_animation
 
 clear
 
-echo -e "${GREEN}"
+echo -e "${MAGENTA}"
 cat << "EOF"
      ██╗██╗ █████╗ ███╗   ██╗███████╗███████╗ ██████╗██╗   ██╗██████╗ ██╗████████╗██╗   ██╗
      ██║██║██╔══██╗████╗  ██║██╔════╝██╔════╝██╔════╝██║   ██║██╔══██╗██║╚══██╔══╝╚██╗ ██╔╝
@@ -19,19 +60,20 @@ cat << "EOF"
 EOF
 echo -e "${NC}"
 
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${GREEN}           Pterodactyl Advanced Security System${NC}"
-echo -e "${BLUE}==================================================================${NC}"
+echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
+echo -e "${MAGENTA}           Pterodactyl Advanced Security System${NC}"
+echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
 echo ""
-echo -e "${GREEN}Pilih instalasi:${NC}"
-echo -e "${YELLOW}1)${NC} Install Protection di Panel (Web)"
-echo -e "${YELLOW}2)${NC} Install Protection di Wings (Server)"
-echo -e "${YELLOW}3)${NC} Install Full Protection (Panel + Wings)"
+echo -e "${MAGENTA}Pilih instalasi:${NC}"
+echo -e "${CYAN}1)${NC} ${WHITE}Install Protection di Panel (Web)${NC}"
+echo -e "${CYAN}2)${NC} ${WHITE}Install Protection di Wings (Server)${NC}"
+echo -e "${CYAN}3)${NC} ${WHITE}Install Full Protection (Panel + Wings)${NC}"
+echo -e "${CYAN}4)${NC} ${WHITE}Uninstall/Hapus Protection${NC}"
 echo ""
-read -p "Masukkan pilihan [1-3]: " choice
+read -p "Masukkan pilihan [1-4]: " choice
 
 install_panel_protection() {
-    echo -e "${GREEN}Installing Panel Protection...${NC}"
+    echo -e "${CYAN}Installing Panel Protection...${NC}"
     
     PANEL_DIR="/var/www/pterodactyl"
     
@@ -353,7 +395,7 @@ EOFBLADE
             /\['api'\]/a\            \\\\Pterodactyl\\\\Http\\\\Middleware\\\\JianSecurity::class,
         }" "$KERNEL_FILE"
         
-        echo -e "${GREEN}JianSecurity berhasil ditambahkan ke Kernel.php${NC}"
+        echo -e "${CYAN}JianSecurity berhasil ditambahkan ke Kernel.php${NC}"
     fi
     
     cd $PANEL_DIR
@@ -364,17 +406,55 @@ EOFBLADE
     
     chown -R www-data:www-data $PANEL_DIR/*
     
-    echo -e "${GREEN}Panel Protection berhasil diinstall!${NC}"
+    echo -e "${CYAN}Panel Protection berhasil diinstall!${NC}"
+}
+
+uninstall_protection() {
+    echo -e "${CYAN}Uninstalling Protection...${NC}"
+    
+    PANEL_DIR="/var/www/pterodactyl"
+    
+    if [ ! -d "$PANEL_DIR" ]; then
+        echo -e "${RED}Error: Pterodactyl panel tidak ditemukan${NC}"
+        exit 1
+    fi
+    
+    if [ -f "$PANEL_DIR/app/Http/Middleware/JianSecurity.php" ]; then
+        rm -f "$PANEL_DIR/app/Http/Middleware/JianSecurity.php"
+        echo -e "${CYAN}JianSecurity.php berhasil dihapus${NC}"
+    fi
+    
+    if [ -f "$PANEL_DIR/resources/views/errors/403-security.blade.php" ]; then
+        rm -f "$PANEL_DIR/resources/views/errors/403-security.blade.php"
+        echo -e "${CYAN}403-security.blade.php berhasil dihapus${NC}"
+    fi
+    
+    KERNEL_FILE="$PANEL_DIR/app/Http/Kernel.php"
+    
+    if grep -q "JianSecurity" "$KERNEL_FILE"; then
+        sed -i '/JianSecurity/d' "$KERNEL_FILE"
+        echo -e "${CYAN}JianSecurity berhasil dihapus dari Kernel.php${NC}"
+    fi
+    
+    cd $PANEL_DIR
+    php artisan config:clear
+    php artisan cache:clear
+    php artisan view:clear
+    php artisan route:clear
+    
+    chown -R www-data:www-data $PANEL_DIR/*
+    
+    echo -e "${MAGENTA}Protection berhasil dihapus!${NC}"
 }
 
 case $choice in
     1)
         install_panel_protection
-        echo -e "${YELLOW}Status: AKTIF ✓${NC}"
+        echo -e "${CYAN}Status: AKTIF ✓${NC}"
         ;;
         
     2)
-        echo -e "${GREEN}Installing Wings Protection...${NC}"
+        echo -e "${CYAN}Installing Wings Protection...${NC}"
         
         WINGS_CONFIG="/etc/pterodactyl/config.yml"
         
@@ -385,8 +465,8 @@ case $choice in
         
         systemctl restart wings
         
-        echo -e "${GREEN}Wings Protection berhasil diinstall!${NC}"
-        echo -e "${YELLOW}Status: AKTIF ✓${NC}"
+        echo -e "${CYAN}Wings Protection berhasil diinstall!${NC}"
+        echo -e "${CYAN}Status: AKTIF ✓${NC}"
         ;;
         
     3)
@@ -396,12 +476,16 @@ case $choice in
         
         if [ -f "$WINGS_CONFIG" ]; then
             systemctl restart wings
-            echo -e "${GREEN}Wings Protection berhasil diinstall!${NC}"
+            echo -e "${CYAN}Wings Protection berhasil diinstall!${NC}"
         fi
         
-        echo -e "${GREEN}Full Protection berhasil diinstall!${NC}"
-        echo -e "${YELLOW}Status Panel: AKTIF ✓${NC}"
-        echo -e "${YELLOW}Status Wings: AKTIF ✓${NC}"
+        echo -e "${MAGENTA}Full Protection berhasil diinstall!${NC}"
+        echo -e "${CYAN}Status Panel: AKTIF ✓${NC}"
+        echo -e "${CYAN}Status Wings: AKTIF ✓${NC}"
+        ;;
+        
+    4)
+        uninstall_protection
         ;;
         
     *)
@@ -411,21 +495,21 @@ case $choice in
 esac
 
 echo ""
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${GREEN}                    Instalasi Selesai!${NC}"
-echo -e "${BLUE}==================================================================${NC}"
-echo -e "${GREEN}Fitur Aktif:${NC}"
-echo -e "  ${YELLOW}✓${NC} Anti Intip Server Orang Lain"
-echo -e "  ${YELLOW}✓${NC} Anti Delete Server ID 1"
-echo -e "  ${YELLOW}✓${NC} Anti Delete Server Orang Lain"
-echo -e "  ${YELLOW}✓${NC} Anti Akses Console Orang Lain"
-echo -e "  ${YELLOW}✓${NC} Anti Download File Orang Lain"
-echo -e "  ${YELLOW}✓${NC} Anti Upload File ke Server Orang Lain"
-echo -e "  ${YELLOW}✓${NC} Anti Edit User Orang Lain"
-echo -e "  ${YELLOW}✓${NC} User Hanya Bisa Akses Server Sendiri"
-echo -e "  ${YELLOW}✓${NC} Halaman Error 403 Custom"
-echo -e "${BLUE}==================================================================${NC}"
+echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
+echo -e "${MAGENTA}                    Instalasi Selesai!${NC}"
+echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
+echo -e "${MAGENTA}Fitur Aktif:${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Intip Server Orang Lain${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Delete Server ID 1${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Delete Server Orang Lain${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Akses Console Orang Lain${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Download File Orang Lain${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Upload File ke Server Orang Lain${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Edit User Orang Lain${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}User Hanya Bisa Akses Server Sendiri${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Halaman Error 403 Custom${NC}"
+echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
 echo ""
-echo -e "${GREEN}Untuk menggunakan script ini via URL:${NC}"
-echo -e "${YELLOW}bash <(curl -s https://raw.githubusercontent.com/jian1222/jiansh/refs/heads/main/main.sh)${NC}"
+echo -e "${MAGENTA}Untuk menggunakan script ini via URL:${NC}"
+echo -e "${CYAN}bash <(curl -s https://raw.githubusercontent.com/jian1222/jiansh/refs/heads/main/main.sh)${NC}"
 echo ""
