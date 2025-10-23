@@ -51,12 +51,22 @@ clear
 
 echo -e "${MAGENTA}"
 cat << "EOF"
-     ██╗██╗ █████╗ ███╗   ██╗███████╗███████╗ ██████╗██╗   ██╗██████╗ ██╗████████╗██╗   ██╗
-     ██║██║██╔══██╗████╗  ██║██╔════╝██╔════╝██╔════╝██║   ██║██╔══██╗██║╚══██╔══╝╚██╗ ██╔╝
-     ██║██║███████║██╔██╗ ██║███████╗█████╗  ██║     ██║   ██║██████╔╝██║   ██║    ╚████╔╝ 
-██   ██║██║██╔══██║██║╚██╗██║╚════██║██╔══╝  ██║     ██║   ██║██╔══██╗██║   ██║     ╚██╔╝  
-╚█████╔╝██║██║  ██║██║ ╚████║███████║███████╗╚██████╗╚██████╔╝██║  ██║██║   ██║      ██║   
- ╚════╝ ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝      ╚═╝   
+⠀       ⢸⠓⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢸⠀⠀⠑⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠙⢤⡷⣤⣦⣀⠤⠖⠚⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⣠⡿⠢⢄⡀⠀⡇⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠸⠷⣶⠂⠀⠀⠀⣀⣀⠀⠀⠀
+⢸⣃⠀⠀⠉⠳⣷⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⢉⡭⠋
+⠀⠘⣆⠀⠀⠀⠁⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀
+⠀⠀⠘⣦⠆⠀⠀⢀⡎⢹⡀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⡀⣠⠔⠋⠀⠀⠀⠀
+⠀⠀⠀⡏⠀⠀⣆⠘⣄⠸⢧⠀⠀⠀⠀⢀⣠⠖⢻⠀⠀⠀⣿⢥⣄⣀⣀⣀⠀⠀ Name : Pterodactayl Protection
+⠀⠀⢸⠁⠀⠀⡏⢣⣌⠙⠚⠀⠀⠠⣖⡛⠀⣠⠏⠀⠀⠀⠇⠀⠀⠀⠀⢙⣣⠄ Version : 1.0
+⠀⠀⢸⡀⠀⠀⠳⡞⠈⢻⠶⠤⣄⣀⣈⣉⣉⣡⡔⠀⠀⢀⠀⠀⣀⡤⠖⠚⠀⠀ Ability : Protection
+⠀⠀⡼⣇⠀⠀⠀⠙⠦⣞⡀⠀⢀⡏⠀⢸⣣⠞⠀⠀⠀⡼⠚⠋⠁⠀⠀⠀⠀⠀
+⠀⢰⡇⠙⠀⠀⠀⠀⠀⠀⠉⠙⠚⠒⠚⠉⠀⠀⠀⠀⡼⠁⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢧⡀⠀⢠⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠙⣶⣶⣿⠢⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠉⠀⠀⠀⠙⢿⣳⠞⠳⡄⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠹⣄⣀⡤⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀
 EOF
 echo -e "${NC}"
 
@@ -122,6 +132,9 @@ class JianSecurity
             }
         }
         
+        $blockAccess = false;
+        $errorMessage = '';
+        
         if ($serverId) {
             $server = Server::find($serverId);
             
@@ -159,39 +172,16 @@ class JianSecurity
                     
                     foreach ($blockedPaths as $path) {
                         if (strpos($uri, $path) !== false) {
-                            if ($request->expectsJson() || $request->is('api/*')) {
-                                return response()->json([
-                                    'errors' => [[
-                                        'code' => 'SecurityJIANBlock',
-                                        'status' => '403',
-                                        'detail' => 'Lu Siapa Kocak Mau Intip Server?'
-                                    ]]
-                                ], 403);
-                            }
-                            
-                            return response()->view('errors.403-security', [
-                                'message' => 'Lu Siapa Kocak Mau Intip Server?',
-                                'code' => 'SECURITY JIAN'
-                            ], 403);
+                            $blockAccess = true;
+                            $errorMessage = 'SECURITY WARNING: Access blocked! You cannot access other users servers!';
+                            break;
                         }
                     }
                 }
                 
                 if ($method === 'DELETE') {
-                    if ($request->expectsJson() || $request->is('api/*')) {
-                        return response()->json([
-                            'errors' => [[
-                                'code' => 'SecurityJIANBlock',
-                                'status' => '403',
-                                'detail' => 'Lu Siapa Kocak Mau Del Panel Khusus Id 1 Server Tolol'
-                            ]]
-                        ], 403);
-                    }
-                    
-                    return response()->view('errors.403-security', [
-                        'message' => 'Lu Siapa Kocak Mau Del Panel Khusus Id 1 Server Tolol',
-                        'code' => 'SECURITY JIAN'
-                    ], 403);
+                    $blockAccess = true;
+                    $errorMessage = 'SECURITY WARNING: Delete action blocked! You cannot delete other users servers!';
                 }
             }
         }
@@ -209,20 +199,8 @@ class JianSecurity
                 }
                 
                 if ($serverIdFromPath == 1) {
-                    if ($request->expectsJson() || $request->is('api/*')) {
-                        return response()->json([
-                            'errors' => [[
-                                'code' => 'SecurityJIANBlock',
-                                'status' => '403',
-                                'detail' => 'Lo Siapa Kocak Mau Del Server Admin Khusus Server 1 Tolol'
-                            ]]
-                        ], 403);
-                    }
-                    
-                    return response()->view('errors.403-security', [
-                        'message' => 'Lo Siapa Kocak Mau Del Server Admin Khusus Server 1 Tolol',
-                        'code' => 'SECURITY JIAN'
-                    ], 403);
+                    $blockAccess = true;
+                    $errorMessage = 'SECURITY WARNING: Server ID 1 is protected and cannot be deleted!';
                 }
             }
         }
@@ -239,21 +217,26 @@ class JianSecurity
             }
             
             if ($userIdFromPath && $userIdFromPath != $user->id) {
-                if ($request->expectsJson() || $request->is('api/*')) {
-                    return response()->json([
-                        'errors' => [[
-                            'code' => 'SecurityJIANBlock',
-                            'status' => '403',
-                            'detail' => 'ACCESS DENIED - SECURITY JIAN'
-                        ]]
-                    ], 403);
-                }
-                
-                return response()->view('errors.403-security', [
-                    'message' => 'ACCESS DENIED',
-                    'code' => 'SECURITY JIAN'
+                $blockAccess = true;
+                $errorMessage = 'SECURITY WARNING: You cannot modify other users profiles!';
+            }
+        }
+        
+        if ($blockAccess) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'errors' => [[
+                        'code' => 'SecurityJIANBlock',
+                        'status' => '403',
+                        'detail' => $errorMessage
+                    ]]
                 ], 403);
             }
+            
+            return response()->view('errors.403-security', [
+                'message' => $errorMessage,
+                'code' => 'SECURITY JIAN'
+            ], 403);
         }
         
         return $next($request);
@@ -382,6 +365,92 @@ EOFPHP
 </html>
 EOFBLADE
 
+    cat > $PANEL_DIR/app/Http/Middleware/JianSecurityWarning.php << 'EOFPHP2'
+<?php
+
+namespace Pterodactyl\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Pterodactyl\Models\Server;
+
+class JianSecurityWarning
+{
+    public function handle(Request $request, Closure $next)
+    {
+        $response = $next($request);
+        
+        $user = Auth::user();
+        
+        if (!$user || $user->root_admin) {
+            return $response;
+        }
+        
+        $serverParam = $request->route('server');
+        $serverId = null;
+        
+        if (is_object($serverParam)) {
+            $serverId = $serverParam->id;
+        } elseif (is_numeric($serverParam)) {
+            $serverId = $serverParam;
+        } elseif (is_string($serverParam)) {
+            $server = Server::where('uuidShort', $serverParam)
+                          ->orWhere('uuid', $serverParam)
+                          ->first();
+            if ($server) {
+                $serverId = $server->id;
+            }
+        }
+        
+        if ($serverId) {
+            $server = Server::find($serverId);
+            
+            if ($server && $server->owner_id !== $user->id) {
+                if (method_exists($response, 'with')) {
+                    $warningMessage = "SECURITY WARNING: You are accessing server '{$server->name}' owned by another user. All actions are monitored and logged.";
+                    return $response->with('security_warning', $warningMessage);
+                }
+            }
+        }
+        
+        return $response;
+    }
+}
+EOFPHP2
+
+    if [ -f "$PANEL_DIR/resources/views/layouts/admin.blade.php" ]; then
+        if ! grep -q "security_warning" "$PANEL_DIR/resources/views/layouts/admin.blade.php"; then
+            sed -i '/@yield(\x27content\x27)/i\
+@if(session(\x27security_warning\x27))\
+    <div class="alert alert-danger alert-dismissible fade show mb-0" style="border-radius: 0;">\
+        <div class="container">\
+            <strong><i class="fas fa-shield-alt mr-2"></i> SECURITY ALERT</strong> {{ session(\x27security_warning\x27) }}\
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                <span aria-hidden="true">&times;</span>\
+            </button>\
+        </div>\
+    </div>\
+@endif' "$PANEL_DIR/resources/views/layouts/admin.blade.php"
+        fi
+    fi
+
+    if [ -f "$PANEL_DIR/resources/views/layouts/base.blade.php" ]; then
+        if ! grep -q "security_warning" "$PANEL_DIR/resources/views/layouts/base.blade.php"; then
+            sed -i '/@yield(\x27content\x27)/i\
+@if(session(\x27security_warning\x27))\
+    <div class="alert alert-danger alert-dismissible fade show mb-0" style="border-radius: 0; border: none;">\
+        <div class="container">\
+            <strong><i class="fas fa-shield-alt mr-2"></i> SECURITY ALERT</strong> {{ session(\x27security_warning\x27) }}\
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                <span aria-hidden="true">&times;</span>\
+            </button>\
+        </div>\
+    </div>\
+@endif' "$PANEL_DIR/resources/views/layouts/base.blade.php"
+        fi
+    fi
+
     KERNEL_FILE="$PANEL_DIR/app/Http/Kernel.php"
     
     if grep -q "JianSecurity" "$KERNEL_FILE"; then
@@ -393,6 +462,10 @@ EOFBLADE
         
         sed -i "/protected \$middlewareGroups = \[/,/\];/ {
             /\['api'\]/a\            \\\\Pterodactyl\\\\Http\\\\Middleware\\\\JianSecurity::class,
+        }" "$KERNEL_FILE"
+        
+        sed -i "/protected \$middlewareGroups = \[/,/\];/ {
+            /\['web'\]/a\            \\\\Pterodactyl\\\\Http\\\\Middleware\\\\JianSecurityWarning::class,
         }" "$KERNEL_FILE"
         
         echo -e "${CYAN}JianSecurity berhasil ditambahkan ke Kernel.php${NC}"
@@ -424,6 +497,11 @@ uninstall_protection() {
         echo -e "${CYAN}JianSecurity.php berhasil dihapus${NC}"
     fi
     
+    if [ -f "$PANEL_DIR/app/Http/Middleware/JianSecurityWarning.php" ]; then
+        rm -f "$PANEL_DIR/app/Http/Middleware/JianSecurityWarning.php"
+        echo -e "${CYAN}JianSecurityWarning.php berhasil dihapus${NC}"
+    fi
+    
     if [ -f "$PANEL_DIR/resources/views/errors/403-security.blade.php" ]; then
         rm -f "$PANEL_DIR/resources/views/errors/403-security.blade.php"
         echo -e "${CYAN}403-security.blade.php berhasil dihapus${NC}"
@@ -434,6 +512,16 @@ uninstall_protection() {
     if grep -q "JianSecurity" "$KERNEL_FILE"; then
         sed -i '/JianSecurity/d' "$KERNEL_FILE"
         echo -e "${CYAN}JianSecurity berhasil dihapus dari Kernel.php${NC}"
+    fi
+    
+    if [ -f "$PANEL_DIR/resources/views/layouts/admin.blade.php" ]; then
+        sed -i '/SECURITY ALERT/,/@endif/d' "$PANEL_DIR/resources/views/layouts/admin.blade.php"
+        echo -e "${CYAN}Security alert dihapus dari admin layout${NC}"
+    fi
+    
+    if [ -f "$PANEL_DIR/resources/views/layouts/base.blade.php" ]; then
+        sed -i '/SECURITY ALERT/,/@endif/d' "$PANEL_DIR/resources/views/layouts/base.blade.php"
+        echo -e "${CYAN}Security alert dihapus dari base layout${NC}"
     fi
     
     cd $PANEL_DIR
@@ -508,6 +596,7 @@ echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Upload File ke Server Orang Lain${NC}"
 echo -e "  ${CYAN}✓${NC} ${WHITE}Anti Edit User Orang Lain${NC}"
 echo -e "  ${CYAN}✓${NC} ${WHITE}User Hanya Bisa Akses Server Sendiri${NC}"
 echo -e "  ${CYAN}✓${NC} ${WHITE}Halaman Error 403 Custom${NC}"
+echo -e "  ${CYAN}✓${NC} ${WHITE}Peringatan Merah di Panel${NC}"
 echo -e "${CYAN}══════════════════════════════════════════════════════════════════${NC}"
 echo ""
 echo -e "${MAGENTA}Untuk menggunakan script ini via URL:${NC}"
